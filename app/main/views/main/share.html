@@ -2,7 +2,9 @@
   分享统计
 <:Body>
   {{if Volt.user}}
-    {{if page._already_visited}}
+    {{if page._self_visit}}
+      <div class="alert alert-danger">Can't visit your owner activity!</div>
+    {{elsif page._already_visited}}
       <div class="alert alert-warning">You'v already visit {{params._owner}}'s activity:{{params._index}}</div>
     {{else}}
       链接被访问次数: {{_activity_visits.count}}
