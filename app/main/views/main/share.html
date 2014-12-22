@@ -1,16 +1,26 @@
 <:Title>
   分享统计
 <:Body>
-  链接被访问次数: {{_activity_visits.count}}
-  <table class="table table-striped table-bordered table-hover table-condensed table-response">
-    <tr>
-      <th>owner</th>
-      <th>activity index</th>
-    </tr>
-    {{ _activity_visits.each do |visit| }}
-      <tr>
-      	<td>{{visit._owner}}</td>
-        <td>{{visit._activity_index}}</td>
-      </tr>
+  {{if Volt.user}}
+    {{if page._already_visited}}
+      <div class="alert alert-warning">You'v already visit {{params._owner}}'s activity:{{params._index}}</div>
+    {{else}}
+      链接被访问次数: {{_activity_visits.count}}
+      <table class="table table-striped table-bordered table-hover table-condensed table-response">
+        <tr>
+          <th>owner</th>
+          <th>activity index</th>
+          <th>visitor</th>
+        </tr>
+        {{ _activity_visits.each do |visit| }}
+          <tr>
+            <td>{{visit._owner}}</td>
+            <td>{{visit._activity_index}}</td>
+            <td>{{visit._visitor}}</td>
+          </tr>
+        {{end}}
+      </table>
     {{end}}
-  </table>
+  {{else}}
+  <:user-templates:login post-signup-url="{{url_with}}">
+  {{end}}

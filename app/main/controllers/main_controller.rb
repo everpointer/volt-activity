@@ -28,8 +28,15 @@ class MainController < Volt::ModelController
   end
 
   def share
-    # handle activity shared path
-    _activity_visits << {owner: params._owner, activity_index: params._index}
+    if Volt.user
+      # handle activity shared path, current Volt user is visitor
+      visit = {owner: params._owner, activity_index: params._index.to_s, visitor: Volt.user._email}
+      if store._activity_visits.find(visit).size > 0
+        _activity_visits << visit
+      else
+        page._already_visited = true
+      end
+    end
   end
 
   private
