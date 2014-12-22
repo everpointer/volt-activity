@@ -31,10 +31,12 @@ class MainController < Volt::ModelController
     if Volt.user
       # handle activity shared path, current Volt user is visitor
       visit = {owner: params._owner, activity_index: params._index.to_s, visitor: Volt.user._email}
-      if store._activity_visits.find(visit).size > 0
-        _activity_visits << visit
-      else
+      if Volt.user._email == params._owner
+        page._self_visit = true
+      elsif store._activity_visits.find(visit).size > 0
         page._already_visited = true
+      else
+        _activity_visits << visit
       end
     end
   end
