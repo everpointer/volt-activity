@@ -1,6 +1,6 @@
 source 'https://ruby.taobao.org'
 
-gem 'volt', '0.8.26'
+gem 'volt', '~> 0.8.27.beta2'
 
 
 # The following gem's are optional for themeing
